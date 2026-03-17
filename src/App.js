@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import profile from './s38.jpeg'; // Asegúrate de que esta imagen exista en src
+import profile from './adrian.jpeg'; 
 import './App.css';
 
-// Importación de imágenes para los modales de Metodologías
-// Asegúrate de que todos estos archivos .png existan en tu carpeta src
+
 import imgCascada from './Cascada.png';
 import imgModeloV from './Modelo en V.png';
 import imgAgiles from './Agiles.png';
@@ -12,7 +11,7 @@ import imgKanban from './Kanban.png';
 import imgXP from './Xp.png';
 import imgHibridas from './Hibridas.png';
 
-// --- COMPONENTE MODAL (VENTANA EMERGENTE) ---
+
 function Modal({ contenido, alCerrar }) {
   if (!contenido) return null;
   return (
@@ -28,11 +27,11 @@ function Modal({ contenido, alCerrar }) {
   );
 }
 
-// --- VISTA: METODOLOGÍAS (PARCIAL 2) - ACTUALIZADA SEGÚN IMAGEN ---
+
 function Metodologias({ alVolver }) {
   const [modalInfo, setModalInfo] = useState(null);
 
-  // Datos de los botones y modales
+  
   const datosMetodos = {
     "CASCADA": { titulo: "Cascada", imagen: imgCascada, c: "#0d6efd" },
     "MODELO V": { titulo: "Modelo V", imagen: imgModeloV, c: "#6c757d" },
@@ -43,7 +42,7 @@ function Metodologias({ alVolver }) {
     "HÍBRIDAS": { titulo: "Híbridas-Modernas", imagen: imgHibridas, c: "#212529" }
   };
 
-  // Estilos compartidos para la vista
+
   const estiloTexto = { fontFamily: 'Arial, sans-serif', color: 'black' };
   const estiloLink = { color: '#0d6efd', textDecoration: 'none' };
 
@@ -51,21 +50,21 @@ function Metodologias({ alVolver }) {
     <div style={{ backgroundColor: "white", minHeight: "100vh", padding: "40px 20px", ...estiloTexto, textAlign: "center" }}>
       <Modal contenido={modalInfo} alCerrar={() => setModalInfo(null)} />
 
-      {/* Título Principal */}
+      {}
       <h1 style={{ fontWeight: 'normal', marginTop: 0 }}>METODOLOGÍAS DE DESARROLLO DE SW</h1>
       
-      {/* Sección: ¿Qué es...? */}
+      {}
       <h3 style={{ fontWeight: 'normal', marginTop: '20px' }}>¿Qué es una metodología de desarrollo de software?</h3>
       <p style={{ maxWidth: "1000px", margin: "15px auto", fontSize: "12px", lineHeight: '1.4' }}>
         Las metodologías de desarrollo de software son un conjunto de técnicas y métodos organizativos que se aplican para diseñar soluciones de software informático. El objetivo de las distintas metodologías es el de intentar organizar los equipos de trabajo para que estos desarrollen las funciones de un programa de la mejor manera posible.
       </p>
       
-      {/* Sección: Tipos de Metodologías */}
+      {}
       <h2 style={{ fontWeight: 'normal', marginTop: '30px', marginBottom: '10px' }}>TIPOS DE METODOLOGÍAS</h2>
       
       <hr style={{ border: '0', borderTop: '1px solid #eee', width: '90%', margin: '0 auto' }} />
       
-      {/* Botones de Metodologías */}
+      {}
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", margin: "25px 0" }}>
         {Object.keys(datosMetodos).map((key) => (
           <button 
@@ -84,11 +83,11 @@ function Metodologias({ alVolver }) {
       
       <hr style={{ border: '0', borderTop: '1px solid #eee', width: '90%', margin: '0 auto' }} />
 
-      {/* Sección: Link a Jira */}
+      {}
       <div style={{ marginTop: '30px' }}>
         <h3 style={{ fontWeight: 'normal' }}>LINK A TABLERO DE TRABAJO</h3>
         <a 
-          href="https://davidcastrosoto709.atlassian.net?continue=https%3A%2F%2Fdavidcastrosoto709.atlassian.net%2Fwelcome%2Fsoftware&atlOrigin=eyJpIjoiZmI0ODMwMzYzZjE1NDA5MTlmZTdjZThiOGM0NDIyOWYiLCJwIjoiaiJ9" // Asegúrate de que este link sea el correcto para el profesor
+          href="https://utd-team-hx510t3k.atlassian.net/jira/projects?types=software%2Cbusiness&xpis=eyJicmlkZ2UiOiJhcHBTd2l0Y2hlciIsImlkIjoiIiwic291cmNlIjoiV0FDIn0%3D"
           target="_blank" 
           rel="noreferrer" 
           style={{ display: 'inline-block', border: "1px dashed #0d6efd", padding: "8px 20px", ...estiloLink, fontSize: '12px', borderRadius: '4px' }}
@@ -99,7 +98,7 @@ function Metodologias({ alVolver }) {
       
       <hr style={{ border: '0', borderTop: '1px solid #eee', width: '90%', margin: '0 auto', marginTop: '30px' }} />
 
-      {/* Sección Final y Frase */}
+      {}
       <div style={{ marginTop: "30px" }}>
         <button 
           onClick={alVolver} 
@@ -108,7 +107,7 @@ function Metodologias({ alVolver }) {
           ---- REGRESAR MENÚ PRINCIPAL ----
         </button>
         
-        {/* FRASE ACTUALIZADA AQUÍ */}
+        {}
         <p style={{ fontSize: "16px", fontStyle: 'italic', margin: '15px 0' }}>
            " Lo que hoy parece dificil,mañana sera parte de tu historia de exito "
         </p>
@@ -121,7 +120,7 @@ function Metodologias({ alVolver }) {
   );
 }
 
-// --- VISTA: CENTRO DE DESCARGAS (PARCIAL 1) - SIN CAMBIOS ---
+
 function CentroDescargas({ alVolver }) {
   const botones = [
     { texto: "COMANDOS BÁSICOS DE REACT", color: "#007bff", archivo: "comandos_react.pdf" },
@@ -148,7 +147,7 @@ function CentroDescargas({ alVolver }) {
   );
 }
 
-// --- COMPONENTE PRINCIPAL (MENÚ) ---
+
 function App() {
   const [vista, setVista] = useState('inicio');
 
@@ -160,8 +159,8 @@ function App() {
       <header className="App-header">
         <img src={profile} className="App-logo" alt="logo" />
         <h1>ANÁLISIS Y DISEÑO DE SOFTWARE</h1>
-        <p><strong>Alumno(a): Castro Soto David Alberto</strong></p>
-        <a className="App-link" href="https://www.linkedin.com/in/david-alberto-castro-soto-b62450351" target="_blank" rel="noopener noreferrer">LINKED IN DE MI PROFILE</a>
+        <p><strong>Alumno(a): Saucedo Gandara Adrian</strong></p>
+        <a className="App-link" href="https://www.linkedin.com/in/adrian-saucedo-gandara-aa09653aa/" target="_blank" rel="noopener noreferrer">LINKED IN DE MI PROFILE</a>
         <button onClick={() => setVista('parcial1')} className="App-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', color: '#61dafb', fontSize: 'inherit', marginTop: '15px' }}>DOCUMENTACION PARCIAL 1</button>
         <button onClick={() => setVista('parcial2')} className="App-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', color: '#61dafb', fontSize: 'inherit', marginTop: '15px' }}>DOCUMENTACION PARCIAL 2</button>
       </header>
