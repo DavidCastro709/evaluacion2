@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import profile from './adrian.jpeg'; 
+import profile from './s38.jpeg'; 
 import './App.css';
 
 
@@ -87,7 +87,7 @@ function Metodologias({ alVolver }) {
       <div style={{ marginTop: '30px' }}>
         <h3 style={{ fontWeight: 'normal' }}>LINK A TABLERO DE TRABAJO</h3>
         <a 
-          href="https://utd-team-hx510t3k.atlassian.net/jira/projects?types=software%2Cbusiness&xpis=eyJicmlkZ2UiOiJhcHBTd2l0Y2hlciIsImlkIjoiIiwic291cmNlIjoiV0FDIn0%3D"
+          href="https://davidcastrosoto709.atlassian.net/jira/software/projects/VDA/boards/34"
           target="_blank" 
           rel="noreferrer" 
           style={{ display: 'inline-block', border: "1px dashed #0d6efd", padding: "8px 20px", ...estiloLink, fontSize: '12px', borderRadius: '4px' }}
@@ -159,8 +159,8 @@ function App() {
       <header className="App-header">
         <img src={profile} className="App-logo" alt="logo" />
         <h1>ANÁLISIS Y DISEÑO DE SOFTWARE</h1>
-        <p><strong>Alumno(a): Saucedo Gandara Adrian</strong></p>
-        <a className="App-link" href="https://www.linkedin.com/in/adrian-saucedo-gandara-aa09653aa/" target="_blank" rel="noopener noreferrer">LINKED IN DE MI PROFILE</a>
+        <p><strong>Alumno(a): Castro Soto David Alberto</strong></p>
+        <a className="App-link" href="www.linkedin.com/in/david-alberto-castro-soto-b62450351" target="_blank" rel="noopener noreferrer">LINKED IN DE MI PROFILE</a>
         <button onClick={() => setVista('parcial1')} className="App-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', color: '#61dafb', fontSize: 'inherit', marginTop: '15px' }}>DOCUMENTACION PARCIAL 1</button>
         <button onClick={() => setVista('parcial2')} className="App-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', color: '#61dafb', fontSize: 'inherit', marginTop: '15px' }}>DOCUMENTACION PARCIAL 2</button>
       </header>
