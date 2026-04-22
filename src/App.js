@@ -1,169 +1,150 @@
 import React, { useState } from 'react';
-import profile from './s38.jpeg'; 
 import './App.css';
+import Login from './Login'; 
 
-
+// Importación de imágenes
+import profile from './s38.jpeg';
 import imgCascada from './Cascada.png';
 import imgModeloV from './Modelo en V.png';
 import imgAgiles from './Agiles.png';
 import imgScrum from './Scrum.png';
 import imgKanban from './Kanban.png';
-import imgXP from './Xp.png';
+import imgXp from './Xp.png';
 import imgHibridas from './Hibridas.png';
 
+// --- COMPONENTE PARCIAL 1: CENTRO DE DESCARGAS (CORREGIDO) ---
+function CentroDescargas({ alVolver }) {
+  const descargar = (nombreArchivo, extension = 'pdf') => {
+    const link = document.createElement('a');
+    // Busca el archivo en la carpeta public/
+    link.href = `./${nombreArchivo}.${extension}`; 
+    link.download = `${nombreArchivo}.${extension}`;
+    link.click();
+  };
 
-function Modal({ contenido, alCerrar }) {
-  if (!contenido) return null;
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
-      <div style={{ backgroundColor: '#fdf8e9', padding: '20px', borderRadius: '10px', maxWidth: '800px', width: '90%', position: 'relative', textAlign: 'center' }}>
-        <button onClick={alCerrar} style={{ position: 'absolute', top: '10px', right: '15px', background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', fontWeight: 'bold' }}>×</button>
-        <h2 style={{ color: '#5d3a1a', borderBottom: '2px solid #e0d5b8', paddingBottom: '10px', marginTop: 0 }}>Vista de {contenido.titulo}</h2>
-        <div style={{ marginTop: '15px' }}>
-          <img src={contenido.imagen} alt={contenido.titulo} style={{ maxWidth: '100%', borderRadius: '5px', border: '1px solid #ddd' }} />
-        </div>
+    <div style={{ backgroundColor: '#f0f2f5', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
+      <div style={{ 
+        backgroundColor: 'white', 
+        padding: '40px', 
+        borderRadius: '15px', 
+        boxShadow: '0 4px 20px rgba(0,0,0,0.15)', 
+        width: '100%', 
+        maxWidth: '450px', 
+        textAlign: 'center' 
+      }}>
+        <h2 style={{ color: '#0d6efd', fontSize: '2rem', marginBottom: '10px', fontWeight: 'bold' }}>
+          Centro de Descargas
+        </h2>
+        <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '30px' }}>
+          Haz clic en los botones para obtener tus archivos PDF.
+        </p>
+        
+        <button onClick={() => descargar("COMANDOS_REACT")} style={{ width: '100%', padding: '15px', marginBottom: '15px', backgroundColor: '#0d6efd', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+          COMANDOS BÁSICOS DE REACT
+        </button>
+
+        <button onClick={() => descargar("ESTANDAR_IEEE")} style={{ width: '100%', padding: '15px', marginBottom: '15px', backgroundColor: '#198754', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+          ISO / ESTANDAR IEEE
+        </button>
+
+        <button onClick={() => descargar("REQUERIMIENTOS")} style={{ width: '100%', padding: '15px', marginBottom: '15px', backgroundColor: '#212529', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+          REQUERIMIENTOS FUNCIONALES Y NO FUNCIONALES
+        </button>
+
+        <button onClick={() => descargar("ALGORITMO_PYTHON")} style={{ width: '100%', padding: '15px', marginBottom: '15px', backgroundColor: '#212529', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+          CÓDIGO PYTHON ALGORITMO SHA-256
+        </button>
+
+        <button onClick={alVolver} style={{ width: '100%', padding: '15px', marginTop: '10px', backgroundColor: '#212529', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+          REGRESAR AL PROYECTO PRINCIPAL
+        </button>
       </div>
     </div>
   );
 }
 
-
+// --- COMPONENTE PARCIAL 2: METODOLOGÍAS ---
 function Metodologias({ alVolver }) {
-  const [modalInfo, setModalInfo] = useState(null);
-
-  
-  const datosMetodos = {
-    "CASCADA": { titulo: "Cascada", imagen: imgCascada, c: "#0d6efd" },
-    "MODELO V": { titulo: "Modelo V", imagen: imgModeloV, c: "#6c757d" },
-    "ÁGILES": { titulo: "Metodologías Ágiles", imagen: imgAgiles, c: "#198754" },
-    "SCRUM": { titulo: "Scrum", imagen: imgScrum, c: "#dc3545" },
-    "KANBAN": { titulo: "Kanban", imagen: imgKanban, c: "#ffc107" },
-    "XP": { titulo: "XP (Extreme Programming)", imagen: imgXP, c: "#0dcaf0" },
-    "HÍBRIDAS": { titulo: "Híbridas-Modernas", imagen: imgHibridas, c: "#212529" }
-  };
-
-
-  const estiloTexto = { fontFamily: 'Arial, sans-serif', color: 'black' };
-  const estiloLink = { color: '#0d6efd', textDecoration: 'none' };
+  const [imagenVisible, setImagenVisible] = useState(null);
+  const metodos = [
+    { t: "CASCADA", c: "#0d6efd", img: imgCascada },
+    { t: "MODELO V", c: "#6c757d", img: imgModeloV },
+    { t: "ÁGILES", c: "#198754", img: imgAgiles },
+    { t: "SCRUM", c: "#dc3545", img: imgScrum },
+    { t: "KANBAN", c: "#ffc107", img: imgKanban },
+    { t: "XP", c: "#0dcaf0", img: imgXp },
+    { t: "HÍBRIDAS", c: "#212529", img: imgHibridas }
+  ];
 
   return (
-    <div style={{ backgroundColor: "white", minHeight: "100vh", padding: "40px 20px", ...estiloTexto, textAlign: "center" }}>
-      <Modal contenido={modalInfo} alCerrar={() => setModalInfo(null)} />
-
-      {}
-      <h1 style={{ fontWeight: 'normal', marginTop: 0 }}>METODOLOGÍAS DE DESARROLLO DE SW</h1>
+    <div style={{ backgroundColor: 'white', minHeight: '100vh', padding: '40px', textAlign: 'center', color: 'black' }}>
+      <h1>METODOLOGÍAS DE DESARROLLO DE SW</h1>
+      <p style={{ fontWeight: 'bold' }}>¿Qué es una metodología de desarrollo de software?</p>
+      <p style={{ maxWidth: '800px', margin: '20px auto' }}>Las metodologías de desarrollo de software son un conjunto de técnicas y métodos organizativos...</p>
       
-      {}
-      <h3 style={{ fontWeight: 'normal', marginTop: '20px' }}>¿Qué es una metodología de desarrollo de software?</h3>
-      <p style={{ maxWidth: "1000px", margin: "15px auto", fontSize: "12px", lineHeight: '1.4' }}>
-        Las metodologías de desarrollo de software son un conjunto de técnicas y métodos organizativos que se aplican para diseñar soluciones de software informático. El objetivo de las distintas metodologías es el de intentar organizar los equipos de trabajo para que estos desarrollen las funciones de un programa de la mejor manera posible.
-      </p>
-      
-      {}
-      <h2 style={{ fontWeight: 'normal', marginTop: '30px', marginBottom: '10px' }}>TIPOS DE METODOLOGÍAS</h2>
-      
-      <hr style={{ border: '0', borderTop: '1px solid #eee', width: '90%', margin: '0 auto' }} />
-      
-      {}
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", margin: "25px 0" }}>
-        {Object.keys(datosMetodos).map((key) => (
-          <button 
-            key={key} 
-            onClick={() => setModalInfo(datosMetodos[key])}
-            style={{ 
-              backgroundColor: datosMetodos[key].c, color: "white", border: "none", 
-              padding: "10px 25px", borderRadius: "5px", fontWeight: "bold", cursor: "pointer",
-              fontSize: '12px', minWidth: '120px'
-            }}
-          >
-            {key}
+      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '10px', margin: '30px 0' }}>
+        {metodos.map((m, i) => (
+          <button key={i} onClick={() => setImagenVisible(m.img)} style={{ padding: '10px 20px', backgroundColor: m.c, color: 'white', border: 'none', borderRadius: '5px', fontWeight: 'bold', cursor: 'pointer' }}>
+            {m.t}
           </button>
         ))}
       </div>
-      
-      <hr style={{ border: '0', borderTop: '1px solid #eee', width: '90%', margin: '0 auto' }} />
-
-      {}
+      {imagenVisible && <img src={imagenVisible} alt="Metodo" style={{ maxWidth: '70%', borderRadius: '10px', border: '1px solid #ccc' }} />}
       <div style={{ marginTop: '30px' }}>
-        <h3 style={{ fontWeight: 'normal' }}>LINK A TABLERO DE TRABAJO</h3>
-        <a 
-          href="https://davidcastrosoto709.atlassian.net/jira/software/projects/VDA/boards/34"
-          target="_blank" 
-          rel="noreferrer" 
-          style={{ display: 'inline-block', border: "1px dashed #0d6efd", padding: "8px 20px", ...estiloLink, fontSize: '12px', borderRadius: '4px' }}
-        >
-          ---- JIRA ----
-        </a>
+        <p>LINK A TABLERO DE TRABAJO</p>
+        <button onClick={() => window.open('https://davidcastrosoto709.atlassian.net/jira/software/projects/VDA/boards/34', '_blank')} style={{ border: '1px dashed blue', color: 'blue', padding: '10px 30px', background: 'none', cursor: 'pointer' }}>---- JIRA ----</button>
       </div>
-      
-      <hr style={{ border: '0', borderTop: '1px solid #eee', width: '90%', margin: '0 auto', marginTop: '30px' }} />
-
-      {}
-      <div style={{ marginTop: "30px" }}>
-        <button 
-          onClick={alVolver} 
-          style={{ border: "1px solid #0d6efd", background: "none", ...estiloLink, padding: "8px 20px", cursor: "pointer", fontSize: '12px', borderRadius: '4px', marginBottom: '25px' }}
-        >
-          ---- REGRESAR MENÚ PRINCIPAL ----
-        </button>
-        
-        {}
-        <p style={{ fontSize: "16px", fontStyle: 'italic', margin: '15px 0' }}>
-           " Lo que hoy parece dificil,mañana sera parte de tu historia de exito "
-        </p>
-        
-        <p style={{ fontSize: "20px", fontWeight: 'bold', marginTop: '25px' }}>
-          Alumno: Castro Soto David Alberto
-        </p>
-      </div>
+      <button onClick={alVolver} style={{ border: '1px solid blue', color: 'blue', padding: '10px 30px', background: 'none', cursor: 'pointer', marginTop: '30px' }}>---- REGRESAR MENÚ PRINCIPAL ----</button>
+      <p style={{ marginTop: '30px', fontStyle: 'italic' }}>" Lo que hoy parece difícil, mañana será parte de tu historia de éxito "</p>
+      <p style={{ fontWeight: 'bold' }}>Alumno: Castro Soto David Alberto</p>
     </div>
   );
 }
 
+// --- COMPONENTE PARCIAL 3: EVALUACIÓN ---
+function EvaluacionParcial3({ alVolver }) {
+  const descargarERS = () => {
+    const link = document.createElement('a');
+    link.href = './ers.docx'; 
+    link.download = 'ers.docx';
+    link.click();
+  };
 
-function CentroDescargas({ alVolver }) {
-  const botones = [
-    { texto: "COMANDOS BÁSICOS DE REACT", color: "#007bff", archivo: "comandos_react.pdf" },
-    { texto: "ISO / ESTANDAR IEEE", color: "#198754", archivo: "iso_ieee.pdf" },
-    { texto: "REQUERIMIENTOS FUNCIONALES Y NO FUNCIONALES", color: "#212529", archivo: "requerimientos.pdf" },
-    { texto: "CÓDIGO PYTHON ALGORITMO SHA-256", color: "#212529", archivo: "sha256.py" },
-  ];
-
-  const estiloBoton = (color) => ({
-    backgroundColor: color, color: "white", border: "none", padding: "15px", width: "100%", borderRadius: "8px", marginBottom: "12px", cursor: "pointer", fontWeight: "bold", display: "block", textDecoration: "none", textAlign: "center", fontSize: '14px'
-  });
+  const estiloBoton = {
+    width: '100%', maxWidth: '550px', padding: '25px', fontSize: '1.3rem', backgroundColor: 'white',
+    color: 'black', border: '4px solid black', cursor: 'pointer', fontWeight: '900', marginBottom: '25px'
+  };
 
   return (
-    <div style={{ backgroundColor: "#282c34", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", padding: '20px' }}>
-      <div style={{ backgroundColor: "white", padding: "40px", borderRadius: "15px", textAlign: "center", width: "100%", maxWidth: "400px" }}>
-        <h2 style={{ color: "#007bff", marginTop: 0 }}>Centro de Descargas</h2>
-        <p style={{ color: "#666", marginBottom: "30px", fontSize: '14px' }}>Haz clic para obtener tus archivos.</p>
-        {botones.map((btn, index) => (
-          <a key={index} href={`/docs/${btn.archivo}`} download style={estiloBoton(btn.color)}>{btn.texto}</a>
-        ))}
-        <button onClick={alVolver} style={{ ...estiloBoton("#333"), marginTop: "20px" }}>REGRESAR AL MENÚ</button>
-      </div>
+    <div style={{ backgroundColor: '#282c34', minHeight: '100vh', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <h1 style={{ fontSize: '4.5rem', fontWeight: 'bold', marginBottom: '60px' }}>EVALUACIÓN PARCIAL 3</h1>
+      <button onClick={descargarERS} style={estiloBoton}>DESCARGAR DOCUMENTO ERS DEL PROYECTO</button>
+      <button onClick={() => window.open('https://davidcastrosoto709.atlassian.net/jira/software/projects/VDA/boards/34', '_blank')} style={estiloBoton}>TABLERO JIRA PROYECTO SIBA</button>
+      <button onClick={alVolver} style={{ ...estiloBoton, border: '4px solid #ff4444', color: '#ff4444' }}>CERRAR SESIÓN PARCIAL 3</button>
     </div>
   );
 }
 
-
+// --- APP PRINCIPAL ---
 function App() {
   const [vista, setVista] = useState('inicio');
 
   if (vista === 'parcial1') return <CentroDescargas alVolver={() => setVista('inicio')} />;
   if (vista === 'parcial2') return <Metodologias alVolver={() => setVista('inicio')} />;
+  if (vista === 'parcial3') return <EvaluacionParcial3 alVolver={() => setVista('inicio')} />;
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={profile} className="App-logo" alt="logo" />
-        <h1>ANÁLISIS Y DISEÑO DE SOFTWARE</h1>
-        <p><strong>Alumno(a): Castro Soto David Alberto</strong></p>
-        <a className="App-link" href="www.linkedin.com/in/david-alberto-castro-soto-b62450351" target="_blank" rel="noopener noreferrer">LINKED IN DE MI PROFILE</a>
-        <button onClick={() => setVista('parcial1')} className="App-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', color: '#61dafb', fontSize: 'inherit', marginTop: '15px' }}>DOCUMENTACION PARCIAL 1</button>
-        <button onClick={() => setVista('parcial2')} className="App-link" style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', color: '#61dafb', fontSize: 'inherit', marginTop: '15px' }}>DOCUMENTACION PARCIAL 2</button>
-      </header>
+    <div className="App" style={{ backgroundColor: '#282c34', minHeight: '100vh', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+      <img src={profile} alt="perfil" style={{ width: '180px', border: '4px solid #3d4451', marginBottom: '40px', borderRadius: '10px', transform: 'rotate(-10deg)' }} />
+      <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '40px' }}>ANÁLISIS Y DISEÑO DE SOFTWARE</h1>
+      <h2 style={{ fontWeight: 'normal', marginBottom: '30px' }}>Alumno(a): Castro Soto David Alberto</h2>
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '40px' }}>
+        <a href="https://www.linkedin.com/in/david-alberto-castro-soto-b62450351" target="_blank" rel="noreferrer" style={{ color: '#61dafb', textDecoration: 'underline', fontSize: '1.2rem' }}>LINKED IN DE MI PROFILE</a>
+        <button onClick={() => setVista('parcial1')} style={{ background: 'none', border: 'none', color: '#61dafb', textDecoration: 'underline', fontSize: '1.2rem', cursor: 'pointer' }}>DOCUMENTACION PARCIAL 1</button>
+        <button onClick={() => setVista('parcial2')} style={{ background: 'none', border: 'none', color: '#61dafb', textDecoration: 'underline', fontSize: '1.2rem', cursor: 'pointer' }}>DOCUMENTACION PARCIAL 2</button>
+      </nav>
+      <Login alLoguear={() => setVista('parcial3')} />
     </div>
   );
 }
